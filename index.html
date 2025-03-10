@@ -73,24 +73,24 @@
       const age = document.getElementById('age').value;
       const style = document.getElementById('style').value;
       
-      // Ambil URL saat ini
+      // Ambil URL base saat ini
       let baseUrl = window.location.origin + window.location.pathname;
       
-      // Jika path mengandung "index.html", kita hapus
+      // Jika URL mengandung "index.html", hapus bagian tersebut
       if (baseUrl.includes('index.html')) {
         baseUrl = baseUrl.replace('index.html', '');
       }
-
-      // Pastikan di akhir path ada tanda slash "/"
+      
+      // Jika baseUrl tidak diakhiri dengan '/', tambahkan '/'
       if (!baseUrl.endsWith('/')) {
         baseUrl += '/';
       }
-
-      // Tambahkan "greeting.html"
+      
+      // Buat URL menuju greeting.html
       const greetingUrl = baseUrl + 'greeting.html';
-
+      
       // Buat link dengan parameter query
-      const link = greetingUrl
+      const link = greetingUrl 
         + '?name=' + encodeURIComponent(name)
         + '&age=' + encodeURIComponent(age)
         + '&style=' + encodeURIComponent(style);
