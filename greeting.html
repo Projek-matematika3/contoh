@@ -4,34 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ucapan Ulang Tahun</title>
+  <!-- Import Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #FFFAF0; /* Warna latar pastel lembut */
+      font-family: 'Gloria Hallelujah', cursive, sans-serif;
+    }
+    .header {
+      background: #FFE3E3; /* Header dengan warna pastel */
       padding: 20px;
-      background: #f0f8ff;
+      text-align: center;
+      border-bottom: 4px dashed #FFAADD;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      color: #FF4081;
+      text-shadow: 1px 1px #fff;
     }
     .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
+      max-width: 700px;
+      margin: 30px auto;
+      background: #ffffff;
+      border: 3px dashed #FFD700;
+      border-radius: 10px;
+      padding: 20px 30px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
       text-align: center;
     }
-    h1 {
-      margin-bottom: 20px;
+    /* Doodle bintang di sudut kiri atas */
+    .container::before {
+      content: "☆";
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      font-size: 2.5em;
+      color: #FFAADD;
+      transform: rotate(-15deg);
     }
-    p {
-      font-size: 1.2em;
+    /* Doodle hati di sudut kanan bawah */
+    .container::after {
+      content: "♡";
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      font-size: 2.5em;
+      color: #FFD700;
+      transform: rotate(15deg);
+    }
+    .greeting {
+      margin: 20px 0;
+      font-size: 1.4em;
+      line-height: 1.6;
+      color: #444;
+    }
+    .note {
+      margin-top: 30px;
+      padding: 15px;
+      background: #FFF0F5;
+      border: 2px dashed #FFAADD;
+      border-radius: 8px;
+      font-style: italic;
+      font-size: 1.1em;
+      color: #6b6b6b;
+      white-space: pre-line; /* agar line break di note textarea terlihat */
+    }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #999;
     }
   </style>
 </head>
 <body>
+  <div class="header">
+    <h1>WELCOME TO PARTY!</h1>
+  </div>
+
   <div class="container">
-    <h1>Ucapan Ulang Tahun</h1>
-    <p id="greeting"></p>
-    <p id="note" style="margin-top: 20px; font-style: italic;"></p>
+    <div id="greeting" class="greeting"></div>
+    <div id="note" class="note" style="display:none;"></div>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 - Happy Birthday Doodle Theme
   </div>
 
   <script>
@@ -59,7 +122,7 @@
     // Buat pesan berdasarkan gaya yang dipilih
     switch(style) {
       case 'cute':
-        greetingMessage = `Happy Birthday, ${name}! Semoga ulang tahun ke-${age}mu dipenuhi dengan keceriaan dan momen-momen manis!`;
+        greetingMessage = `Happy Birthday, ${name}! Semoga ulang tahun ke-${age} dipenuhi dengan keceriaan dan momen-momen manis!`;
         break;
       case 'jamet':
         greetingMessage = `Bro, selamat ulang tahun yang ke-${age}! Keep shining, ${name}, tetap keren dan unik!`;
@@ -71,11 +134,14 @@
         greetingMessage = `Selamat Ulang Tahun, ${name}! Semoga hari istimewa ini penuh kebahagiaan.`;
     }
 
+    // Tampilkan pesan utama
     document.getElementById('greeting').textContent = greetingMessage;
 
     // Jika terdapat catatan, tampilkan juga
     if(note.trim() !== '') {
-      document.getElementById('note').textContent = `Pesan dari sahabat: ${note}`;
+      const noteDiv = document.getElementById('note');
+      noteDiv.style.display = 'block';
+      noteDiv.textContent = `Pesan spesial: ${note}`;
     }
   </script>
 </body>
