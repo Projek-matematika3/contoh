@@ -4,19 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ucapan Ulang Tahun</title>
-  <!-- Import Google Font -->
+  <!-- Import Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Contoh font Gloria Hallelujah untuk cute, bisa dipertahankan -->
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+  <!-- Font bawaan untuk jamet: Comic Sans MS -->
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #FFFAF0; /* Warna latar pastel lembut */
-      font-family: 'Gloria Hallelujah', cursive, sans-serif;
+      background: #FFFAF0;
+      font-family: 'Gloria Hallelujah', cursive, sans-serif; /* Default (cute) */
     }
     .header {
-      background: #FFE3E3; /* Header dengan warna pastel */
+      background: #FFE3E3;
       padding: 20px;
       text-align: center;
       border-bottom: 4px dashed #FFAADD;
@@ -27,19 +29,23 @@
       color: #FF4081;
       text-shadow: 1px 1px #fff;
     }
+    /* Common container style */
     .container {
       max-width: 700px;
       margin: 30px auto;
-      background: #ffffff;
-      border: 3px dashed #FFD700;
-      border-radius: 10px;
       padding: 20px 30px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      position: relative;
       text-align: center;
+      position: relative;
+      border-radius: 10px;
     }
-    /* Doodle bintang di sudut kiri atas */
-    .container::before {
+    /* Theme Cute (Doodle) */
+    .theme-cute {
+      background: #ffffff;
+      border: 3px dashed #FFD700;
+      font-family: 'Gloria Hallelujah', cursive, sans-serif;
+    }
+    .theme-cute::before {
       content: "☆";
       position: absolute;
       top: -20px;
@@ -48,8 +54,7 @@
       color: #FFAADD;
       transform: rotate(-15deg);
     }
-    /* Doodle hati di sudut kanan bawah */
-    .container::after {
+    .theme-cute::after {
       content: "♡";
       position: absolute;
       bottom: -20px;
@@ -58,22 +63,70 @@
       color: #FFD700;
       transform: rotate(15deg);
     }
+    /* Theme Jamet */
+    .theme-jamet {
+      /* Gradient pelangi ala jamet */
+      background: linear-gradient(135deg, red 0%, orange 16%, yellow 33%, green 50%, blue 66%, purple 83%, red 100%);
+      color: #fff;
+      border: 5px dotted #000; /* border hitam putus-putus */
+      font-family: "Comic Sans MS", cursive, sans-serif; /* Ganti font jadi Comic Sans MS */
+      text-shadow: 2px 2px #000; /* Bayangan teks biar mencolok */
+      position: relative;
+    }
+    /* Tambahkan emoji / simbol di sudut */
+    .theme-jamet::before {
+      content: "✌😎🔥";
+      position: absolute;
+      top: -25px;
+      left: -10px;
+      font-size: 2em;
+      transform: rotate(-15deg);
+    }
+    .theme-jamet::after {
+      content: "🎂🎉💥";
+      position: absolute;
+      bottom: -25px;
+      right: -10px;
+      font-size: 2em;
+      transform: rotate(15deg);
+    }
+    /* Theme Lakik */
+    .theme-lakik {
+      background: #F5F5F5;
+      border: 3px solid #333;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+    /* Common styling for greeting text and note */
     .greeting {
       margin: 20px 0;
       font-size: 1.4em;
       line-height: 1.6;
-      color: #444;
     }
     .note {
       margin-top: 30px;
       padding: 15px;
-      background: #FFF0F5;
-      border: 2px dashed #FFAADD;
       border-radius: 8px;
       font-style: italic;
       font-size: 1.1em;
+      white-space: pre-line;
+    }
+    /* Specific note styling for each theme */
+    .theme-cute .note {
+      background: #FFF0F5;
+      border: 2px dashed #FFAADD;
       color: #6b6b6b;
-      white-space: pre-line; /* agar line break di note textarea terlihat */
+    }
+    .theme-jamet .note {
+      background: rgba(255, 255, 255, 0.2); 
+      border: 2px dashed #fff;
+      color: #fff;
+      text-shadow: 1px 1px #000;
+    }
+    .theme-lakik .note {
+      background: #ddd;
+      border: 2px solid #333;
+      color: #333;
     }
     .footer {
       text-align: center;
@@ -88,13 +141,13 @@
     <h1>WELCOME TO PARTY!</h1>
   </div>
 
-  <div class="container">
+  <div id="container" class="container">
     <div id="greeting" class="greeting"></div>
     <div id="note" class="note" style="display:none;"></div>
   </div>
 
   <div class="footer">
-    &copy; 2025 - Happy Birthday Doodle Theme
+    &copy; 2025 - Happy Birthday Themes
   </div>
 
   <script>
@@ -114,13 +167,13 @@
     const params = getQueryParams();
     const name = params.name || 'Teman';
     const age = params.age || 'usia';
-    const style = params.style || 'cute';
+    const styleParam = params.style || 'cute';
     const note = params.note || '';
 
     let greetingMessage = '';
 
     // Buat pesan berdasarkan gaya yang dipilih
-    switch(style) {
+    switch(styleParam) {
       case 'cute':
         greetingMessage = `Happy Birthday, ${name}! Semoga ulang tahun ke-${age} dipenuhi dengan keceriaan dan momen-momen manis!`;
         break;
@@ -142,6 +195,18 @@
       const noteDiv = document.getElementById('note');
       noteDiv.style.display = 'block';
       noteDiv.textContent = `Pesan spesial: ${note}`;
+    }
+
+    // Tambahkan kelas tema berdasarkan parameter style
+    const container = document.getElementById('container');
+    if (styleParam === 'cute') {
+      container.classList.add('theme-cute');
+    } else if (styleParam === 'jamet') {
+      container.classList.add('theme-jamet');
+    } else if (styleParam === 'lakik') {
+      container.classList.add('theme-lakik');
+    } else {
+      container.classList.add('theme-cute'); // default ke cute
     }
   </script>
 </body>
