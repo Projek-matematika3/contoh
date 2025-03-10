@@ -7,43 +7,82 @@
   <!-- Import Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Contoh font Gloria Hallelujah untuk cute, bisa dipertahankan -->
+  <!-- Font untuk tema cute (Gloria Hallelujah) -->
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
-  <!-- Font bawaan untuk jamet: Comic Sans MS -->
+  <!-- Font modern untuk tema lakik, misalnya Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
+    /* RESET DASAR */
+    * {
+      margin: 0; 
       padding: 0;
-      background: #FFFAF0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #FFFAF0; 
       font-family: 'Gloria Hallelujah', cursive, sans-serif; /* Default (cute) */
     }
+
+    /* --- HEADER UMUM --- */
     .header {
-      background: #FFE3E3;
       padding: 20px;
       text-align: center;
-      border-bottom: 4px dashed #FFAADD;
     }
     .header h1 {
-      margin: 0;
       font-size: 2.5em;
-      color: #FF4081;
       text-shadow: 1px 1px #fff;
     }
-    /* Common container style */
+
+    /* --- HEADER CUTE --- */
+    .header-cute {
+      background: #FFE3E3;
+      border-bottom: 4px dashed #FFAADD;
+    }
+    .header-cute h1 {
+      color: #FF4081;
+    }
+
+    /* --- HEADER JAMET --- */
+    .header-jamet {
+      background: #000; 
+      border-bottom: 4px dashed #FFD700;
+    }
+    .header-jamet h1 {
+      color: #FFD700;
+      text-shadow: 2px 2px #000; 
+      font-size: 3em; 
+    }
+
+    /* --- HEADER LAKIK --- */
+    .header-lakik {
+      /* Warna gelap dengan sedikit efek glitter/emas bisa ditambahkan dengan background-image */
+      background: #000;
+      border-bottom: 4px solid #FFD700;
+    }
+    .header-lakik h1 {
+      color: #FFD700;
+      font-family: 'Poppins', sans-serif; /* Font modern */
+      text-shadow: 2px 2px 4px rgba(255,215,0,0.7); /* Glow emas */
+      font-size: 2.7em;
+    }
+
+    /* --- CONTAINER UMUM --- */
     .container {
-      max-width: 700px;
       margin: 30px auto;
       padding: 20px 30px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       text-align: center;
       position: relative;
       border-radius: 10px;
+      max-width: 700px; 
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    /* Theme Cute (Doodle) */
+
+    /* --- THEME CUTE --- */
     .theme-cute {
       background: #ffffff;
       border: 3px dashed #FFD700;
       font-family: 'Gloria Hallelujah', cursive, sans-serif;
+      max-width: 800px; 
     }
     .theme-cute::before {
       content: "☆";
@@ -63,17 +102,19 @@
       color: #FFD700;
       transform: rotate(15deg);
     }
-    /* Theme Jamet */
+    .theme-cute .greeting {
+      font-size: 1.5em; 
+    }
+
+    /* --- THEME JAMET --- */
     .theme-jamet {
-      /* Gradient pelangi ala jamet */
       background: linear-gradient(135deg, red 0%, orange 16%, yellow 33%, green 50%, blue 66%, purple 83%, red 100%);
       color: #fff;
-      border: 5px dotted #000; /* border hitam putus-putus */
-      font-family: "Comic Sans MS", cursive, sans-serif; /* Ganti font jadi Comic Sans MS */
-      text-shadow: 2px 2px #000; /* Bayangan teks biar mencolok */
-      position: relative;
+      border: 5px dotted #000;
+      font-family: "Comic Sans MS", cursive, sans-serif; 
+      text-shadow: 2px 2px #000;
+      max-width: 900px;
     }
-    /* Tambahkan emoji / simbol di sudut */
     .theme-jamet::before {
       content: "✌😎🔥";
       position: absolute;
@@ -90,14 +131,45 @@
       font-size: 2em;
       transform: rotate(15deg);
     }
-    /* Theme Lakik */
-    .theme-lakik {
-      background: #F5F5F5;
-      border: 3px solid #333;
-      font-family: Arial, sans-serif;
-      color: #333;
+    .theme-jamet .greeting {
+      font-size: 1.8em; 
     }
-    /* Common styling for greeting text and note */
+
+    /* --- THEME LAKIK --- */
+    .theme-lakik {
+      /* Warna dasar hitam dengan bintik emas */
+      background: #000 url('https://i.ibb.co/8mfsn2c/gold-sparkles.png') center/cover no-repeat; 
+      /* Gambar gold-sparkles.png (contoh) diupload ke hosting, ganti URL sesuai kebutuhan */
+      border: 3px solid #FFD700;
+      color: #FFD700;
+      font-family: 'Poppins', sans-serif;
+      text-shadow: 1px 1px 2px rgba(255,215,0,0.8);
+      max-width: 800px;
+    }
+    .theme-lakik::before {
+      content: "★";
+      position: absolute;
+      top: -25px;
+      left: -25px;
+      font-size: 2.5em;
+      color: #FFD700;
+      filter: drop-shadow(1px 1px 3px rgba(255,215,0,0.8));
+    }
+    .theme-lakik::after {
+      content: "✨";
+      position: absolute;
+      bottom: -25px;
+      right: -25px;
+      font-size: 2.5em;
+      color: #FFD700;
+      filter: drop-shadow(1px 1px 3px rgba(255,215,0,0.8));
+    }
+    .theme-lakik .greeting {
+      font-size: 1.8em;
+      margin-top: 20px;
+    }
+
+    /* --- TEKS UTAMA (greeting) & NOTE --- */
     .greeting {
       margin: 20px 0;
       font-size: 1.4em;
@@ -111,7 +183,8 @@
       font-size: 1.1em;
       white-space: pre-line;
     }
-    /* Specific note styling for each theme */
+
+    /* --- NOTE PER THEME --- */
     .theme-cute .note {
       background: #FFF0F5;
       border: 2px dashed #FFAADD;
@@ -122,12 +195,15 @@
       border: 2px dashed #fff;
       color: #fff;
       text-shadow: 1px 1px #000;
+      font-size: 1.2em; 
     }
     .theme-lakik .note {
-      background: #ddd;
-      border: 2px solid #333;
-      color: #333;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #FFD700;
+      color: #FFD700;
+      text-shadow: 1px 1px 2px rgba(255,215,0,0.8);
     }
+
     .footer {
       text-align: center;
       margin-top: 40px;
@@ -137,7 +213,8 @@
   </style>
 </head>
 <body>
-  <div class="header">
+  <!-- HEADER diberi id="header" agar bisa diubah temanya juga -->
+  <div id="header" class="header">
     <h1>WELCOME TO PARTY!</h1>
   </div>
 
@@ -199,14 +276,23 @@
 
     // Tambahkan kelas tema berdasarkan parameter style
     const container = document.getElementById('container');
+    const header = document.getElementById('header');
+
     if (styleParam === 'cute') {
       container.classList.add('theme-cute');
+      header.classList.add('header-cute');
     } else if (styleParam === 'jamet') {
       container.classList.add('theme-jamet');
+      header.classList.add('header-jamet');
     } else if (styleParam === 'lakik') {
       container.classList.add('theme-lakik');
+      header.classList.add('header-lakik');
+      // Ubah background body jadi gelap juga, jika diinginkan:
+      document.body.style.background = '#000';
     } else {
-      container.classList.add('theme-cute'); // default ke cute
+      // Default ke cute
+      container.classList.add('theme-cute');
+      header.classList.add('header-cute');
     }
   </script>
 </body>
