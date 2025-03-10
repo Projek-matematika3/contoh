@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Font untuk tema cute (Gloria Hallelujah) -->
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
-  <!-- Font modern untuk tema lakik, misalnya Poppins -->
+  <!-- Font modern untuk tema lakik (Poppins) -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
   <style>
     /* RESET DASAR */
@@ -23,7 +23,6 @@
       font-family: 'Gloria Hallelujah', cursive, sans-serif; /* Default (cute) */
     }
 
-    /* --- HEADER UMUM --- */
     .header {
       padding: 20px;
       text-align: center;
@@ -33,7 +32,7 @@
       text-shadow: 1px 1px #fff;
     }
 
-    /* --- HEADER CUTE --- */
+    /* Header per tema */
     .header-cute {
       background: #FFE3E3;
       border-bottom: 4px dashed #FFAADD;
@@ -41,8 +40,6 @@
     .header-cute h1 {
       color: #FF4081;
     }
-
-    /* --- HEADER JAMET --- */
     .header-jamet {
       background: #000; 
       border-bottom: 4px dashed #FFD700;
@@ -52,21 +49,18 @@
       text-shadow: 2px 2px #000; 
       font-size: 3em; 
     }
-
-    /* --- HEADER LAKIK --- */
     .header-lakik {
-      /* Warna gelap dengan sedikit efek glitter/emas bisa ditambahkan dengan background-image */
       background: #000;
       border-bottom: 4px solid #FFD700;
     }
     .header-lakik h1 {
       color: #FFD700;
-      font-family: 'Poppins', sans-serif; /* Font modern */
-      text-shadow: 2px 2px 4px rgba(255,215,0,0.7); /* Glow emas */
+      font-family: 'Poppins', sans-serif;
+      text-shadow: 2px 2px 4px rgba(255,215,0,0.7);
       font-size: 2.7em;
     }
 
-    /* --- CONTAINER UMUM --- */
+    /* Container umum */
     .container {
       margin: 30px auto;
       padding: 20px 30px;
@@ -77,7 +71,7 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    /* --- THEME CUTE --- */
+    /* Theme Cute */
     .theme-cute {
       background: #ffffff;
       border: 3px dashed #FFD700;
@@ -102,11 +96,8 @@
       color: #FFD700;
       transform: rotate(15deg);
     }
-    .theme-cute .greeting {
-      font-size: 1.5em; 
-    }
 
-    /* --- THEME JAMET --- */
+    /* Theme Jamet */
     .theme-jamet {
       background: linear-gradient(135deg, red 0%, orange 16%, yellow 33%, green 50%, blue 66%, purple 83%, red 100%);
       color: #fff;
@@ -131,15 +122,10 @@
       font-size: 2em;
       transform: rotate(15deg);
     }
-    .theme-jamet .greeting {
-      font-size: 1.8em; 
-    }
 
-    /* --- THEME LAKIK --- */
+    /* Theme Lakik */
     .theme-lakik {
-      /* Warna dasar hitam dengan bintik emas */
       background: #000 url('https://i.ibb.co/8mfsn2c/gold-sparkles.png') center/cover no-repeat; 
-      /* Gambar gold-sparkles.png (contoh) diupload ke hosting, ganti URL sesuai kebutuhan */
       border: 3px solid #FFD700;
       color: #FFD700;
       font-family: 'Poppins', sans-serif;
@@ -164,12 +150,7 @@
       color: #FFD700;
       filter: drop-shadow(1px 1px 3px rgba(255,215,0,0.8));
     }
-    .theme-lakik .greeting {
-      font-size: 1.8em;
-      margin-top: 20px;
-    }
 
-    /* --- TEKS UTAMA (greeting) & NOTE --- */
     .greeting {
       margin: 20px 0;
       font-size: 1.4em;
@@ -183,8 +164,7 @@
       font-size: 1.1em;
       white-space: pre-line;
     }
-
-    /* --- NOTE PER THEME --- */
+    /* Note per tema */
     .theme-cute .note {
       background: #FFF0F5;
       border: 2px dashed #FFAADD;
@@ -204,6 +184,24 @@
       text-shadow: 1px 1px 2px rgba(255,215,0,0.8);
     }
 
+    /* Foto per tema */
+    .photo {
+      display: block;
+      margin: 20px auto;
+      max-width: 200px; /* default size */
+      border-radius: 8px;
+    }
+    .theme-cute .photo {
+      border: 3px dashed #FFAADD;
+    }
+    .theme-jamet .photo {
+      border: 4px dotted #fff;
+    }
+    .theme-lakik .photo {
+      border: 3px solid #FFD700;
+      box-shadow: 0 0 10px rgba(255,215,0,0.5);
+    }
+
     .footer {
       text-align: center;
       margin-top: 40px;
@@ -213,12 +211,14 @@
   </style>
 </head>
 <body>
-  <!-- HEADER diberi id="header" agar bisa diubah temanya juga -->
   <div id="header" class="header">
     <h1>WELCOME TO PARTY!</h1>
   </div>
 
   <div id="container" class="container">
+    <!-- Foto akan ditampilkan di sini jika ada -->
+    <img id="uploadedPhoto" class="photo" style="display:none;" alt="Foto Ulang Tahun">
+
     <div id="greeting" class="greeting"></div>
     <div id="note" class="note" style="display:none;"></div>
   </div>
@@ -246,6 +246,7 @@
     const age = params.age || 'usia';
     const styleParam = params.style || 'cute';
     const note = params.note || '';
+    const photo = params.photo || ''; // base64 data
 
     let greetingMessage = '';
 
@@ -287,12 +288,17 @@
     } else if (styleParam === 'lakik') {
       container.classList.add('theme-lakik');
       header.classList.add('header-lakik');
-      // Ubah background body jadi gelap juga, jika diinginkan:
       document.body.style.background = '#000';
     } else {
-      // Default ke cute
       container.classList.add('theme-cute');
       header.classList.add('header-cute');
+    }
+
+    // Jika ada foto (base64) di URL, tampilkan
+    if(photo.startsWith('data:image')) {
+      const uploadedPhoto = document.getElementById('uploadedPhoto');
+      uploadedPhoto.src = photo;
+      uploadedPhoto.style.display = 'block';
     }
   </script>
 </body>
