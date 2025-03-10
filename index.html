@@ -12,7 +12,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #FFF9E6;
+      background: #FFF9E6; /* Warna latar pastel */
       font-family: 'Gloria Hallelujah', cursive, sans-serif;
     }
     .header {
@@ -37,7 +37,6 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       position: relative;
     }
-    /* Doodle kecil di sudut kiri atas */
     .container::before {
       content: "★";
       position: absolute;
@@ -47,7 +46,6 @@
       color: #FF82B2;
       transform: rotate(-20deg);
     }
-    /* Doodle kecil di sudut kanan bawah */
     .container::after {
       content: "♥";
       position: absolute;
@@ -136,6 +134,10 @@
       <label for="note">Catatan dari Pengirim:</label>
       <textarea id="note" name="note" rows="4" placeholder="Tulis pesan spesial..."></textarea>
 
+      <!-- Input foto -->
+      <label for="photo">Upload Foto (opsional):</label>
+      <input type="file" id="photo" name="photo" accept="image/*">
+
       <button type="submit">Buat Link Ucapan</button>
     </form>
 
@@ -149,38 +151,54 @@
   <script>
     document.getElementById('birthdayForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      
       const name = document.getElementById('name').value;
       const age = document.getElementById('age').value;
       const style = document.getElementById('style').value;
       const note = document.getElementById('note').value;
+      const photoFile = document.getElementById('photo').files[0];
       
-      // Ambil URL base saat ini
-      let baseUrl = window.location.origin + window.location.pathname;
-      
-      // Jika URL mengandung "index.html", hapus bagian tersebut
-      if (baseUrl.includes('index.html')) {
-        baseUrl = baseUrl.replace('index.html', '');
+      // Fungsi untuk menampilkan link di layar
+      function showLink(photoBase64) {
+        let baseUrl = window.location.origin + window.location.pathname;
+        
+        // Hapus "index.html" jika ada di path
+        if (baseUrl.includes('index.html')) {
+          baseUrl = baseUrl.replace('index.html', '');
+        }
+        // Pastikan diakhiri slash
+        if (!baseUrl.endsWith('/')) {
+          baseUrl += '/';
+        }
+        const greetingUrl = baseUrl + 'greeting.html';
+
+        // Buat link dengan parameter query
+        const link = greetingUrl 
+          + '?name=' + encodeURIComponent(name)
+          + '&age=' + encodeURIComponent(age)
+          + '&style=' + encodeURIComponent(style)
+          + '&note=' + encodeURIComponent(note)
+          + (photoBase64 ? ('&photo=' + encodeURIComponent(photoBase64)) : '');
+
+        // Tampilkan link
+        const resultDiv = document.getElementById('result');
+        resultDiv.style.display = 'block';
+        resultDiv.textContent = link;
       }
-      
-      // Jika baseUrl tidak diakhiri dengan '/', tambahkan '/'
-      if (!baseUrl.endsWith('/')) {
-        baseUrl += '/';
+
+      // Jika tidak ada foto, langsung tampilkan link
+      if (!photoFile) {
+        showLink('');
+        return;
       }
-      
-      // Buat URL menuju greeting.html
-      const greetingUrl = baseUrl + 'greeting.html';
-      
-      // Buat link dengan parameter query, termasuk note
-      const link = greetingUrl 
-        + '?name=' + encodeURIComponent(name)
-        + '&age=' + encodeURIComponent(age)
-        + '&style=' + encodeURIComponent(style)
-        + '&note=' + encodeURIComponent(note);
-      
-      // Tampilkan link yang dihasilkan
-      const resultDiv = document.getElementById('result');
-      resultDiv.style.display = 'block';
-      resultDiv.textContent = link;
+
+      // Jika ada foto, kita baca filenya secara base64
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const photoBase64 = evt.target.result; // data:image/...
+        showLink(photoBase64);
+      };
+      reader.readAsDataURL(photoFile);
     });
   </script>
 </body>
