@@ -4,70 +4,146 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Buat Ucapan Ulang Tahun</title>
+  <!-- Import Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #FFF9E6; /* Warna latar pastel */
+      font-family: 'Gloria Hallelujah', cursive, sans-serif;
+    }
+    .header {
+      background: #FFD6E8; /* Header dengan warna pink pastel */
       padding: 20px;
-      background: #f5f5f5;
+      text-align: center;
+      border-bottom: 4px dashed #FF82B2; /* Gaya doodle */
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      color: #FF4081; /* Pink terang */
+      text-shadow: 1px 1px #fff;
     }
     .container {
-      max-width: 500px;
-      margin: 0 auto;
-      background: #fff;
+      max-width: 600px;
+      margin: 30px auto;
+      background: #ffffff;
+      border: 3px dashed #FFD700; /* border kuning ala doodle */
+      border-radius: 10px;
       padding: 20px;
-      border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      position: relative;
     }
-    h1 {
+    /* Doodle kecil di sudut kiri atas */
+    .container::before {
+      content: "★";
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      font-size: 2em;
+      color: #FF82B2;
+      transform: rotate(-20deg);
+    }
+    /* Doodle kecil di sudut kanan bawah */
+    .container::after {
+      content: "♥";
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+      font-size: 2em;
+      color: #FFD700;
+      transform: rotate(15deg);
+    }
+    h2 {
+      margin-top: 0;
       text-align: center;
+      font-size: 1.8em;
+      color: #FF4081;
     }
     label {
       display: block;
-      margin-top: 10px;
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #444;
     }
     input, select, textarea, button {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+      border-radius: 8px;
+      border: 2px dashed #FFAADD; 
+      font-family: inherit;
+      font-size: 1em;
       box-sizing: border-box;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #FF4081;
+      background-color: #FFF0F5;
+    }
+    button {
+      margin-top: 20px;
+      background: #FF82B2;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid #FF4081;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #FF4081;
     }
     .link-container {
       margin-top: 20px;
       padding: 10px;
-      background: #e7f3fe;
-      border: 1px solid #b3d8ff;
-      border-radius: 4px;
+      background: #E7F3FE;
+      border: 2px dashed #B3D8FF;
+      border-radius: 8px;
       word-break: break-all;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #999;
     }
   </style>
 </head>
 <body>
+  <div class="header">
+    <h1>WELCOME TO B-DAY PARTY!</h1>
+  </div>
+
   <div class="container">
-    <h1>Buat Ucapan Ulang Tahun</h1>
+    <h2>Buat Ucapan Ulang Tahun</h2>
     <form id="birthdayForm">
-      <label for="name">Nama:</label>
-      <input type="text" id="name" name="name" required>
+      <label for="name">Nama Tujuan:</label>
+      <input type="text" id="name" name="name" placeholder="Contoh: Fina" required>
 
       <label for="age">Umur:</label>
-      <input type="number" id="age" name="age" required min="1">
+      <input type="number" id="age" name="age" placeholder="Contoh: 20" required min="1">
 
-      <label for="style">Pilih gaya ucapan:</label>
+      <label for="style">Pilih Gaya Ucapan:</label>
       <select id="style" name="style">
         <option value="cute">Cute</option>
         <option value="jamet">Jamet</option>
         <option value="lakik">Lakik</option>
       </select>
 
-      <!-- Input tambahan untuk catatan -->
-      <label for="note">Catatan untuk yang berulang tahun:</label>
+      <label for="note">Catatan dari Pengirim:</label>
       <textarea id="note" name="note" rows="4" placeholder="Tulis pesan spesial..."></textarea>
 
       <button type="submit">Buat Link Ucapan</button>
     </form>
 
     <div id="result" class="link-container" style="display:none;"></div>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 - Contoh Tema Doodle Ulang Tahun
   </div>
 
   <script>
