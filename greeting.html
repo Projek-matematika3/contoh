@@ -31,6 +31,7 @@
   <div class="container">
     <h1>Ucapan Ulang Tahun</h1>
     <p id="greeting"></p>
+    <p id="note" style="margin-top: 20px; font-style: italic;"></p>
   </div>
 
   <script>
@@ -51,6 +52,7 @@
     const name = params.name || 'Teman';
     const age = params.age || 'usia';
     const style = params.style || 'cute';
+    const note = params.note || '';
 
     let greetingMessage = '';
 
@@ -70,6 +72,11 @@
     }
 
     document.getElementById('greeting').textContent = greetingMessage;
+
+    // Jika terdapat catatan, tampilkan juga
+    if(note.trim() !== '') {
+      document.getElementById('note').textContent = `Pesan dari sahabat: ${note}`;
+    }
   </script>
 </body>
 </html>
