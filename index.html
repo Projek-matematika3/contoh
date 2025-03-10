@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Buat Ucapan Ulang Tahun</title>
-  <!-- Import Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+  <!-- Import Google Font untuk tema cute -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap"
+    rel="stylesheet"
+  />
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #FFF9E6; /* Warna latar pastel */
-      font-family: 'Gloria Hallelujah', cursive, sans-serif;
+      background: #fff9e6;
+      font-family: "Gloria Hallelujah", cursive, sans-serif;
     }
     .header {
-      background: #FFD6E8;
+      background: #ffd6e8;
       padding: 20px;
       text-align: center;
-      border-bottom: 4px dashed #FF82B2;
+      border-bottom: 4px dashed #ff82b2;
     }
     .header h1 {
       margin: 0;
       font-size: 2.5em;
-      color: #FF4081;
+      color: #ff4081;
       text-shadow: 1px 1px #fff;
     }
     .container {
       max-width: 600px;
       margin: 30px auto;
       background: #ffffff;
-      border: 3px dashed #FFD700;
+      border: 3px dashed #ffd700;
       border-radius: 10px;
       padding: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       position: relative;
     }
     .container::before {
@@ -43,7 +44,7 @@
       top: -15px;
       left: -15px;
       font-size: 2em;
-      color: #FF82B2;
+      color: #ff82b2;
       transform: rotate(-20deg);
     }
     .container::after {
@@ -52,14 +53,14 @@
       bottom: -15px;
       right: -15px;
       font-size: 2em;
-      color: #FFD700;
+      color: #ffd700;
       transform: rotate(15deg);
     }
     h2 {
       margin-top: 0;
       text-align: center;
       font-size: 1.8em;
-      color: #FF4081;
+      color: #ff4081;
     }
     label {
       display: block;
@@ -67,38 +68,43 @@
       font-size: 1.1em;
       color: #444;
     }
-    input, select, textarea, button {
+    input,
+    select,
+    textarea,
+    button {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 8px;
-      border: 2px dashed #FFAADD; 
+      border: 2px dashed #ffaadd;
       font-family: inherit;
       font-size: 1em;
       box-sizing: border-box;
       outline: none;
     }
-    input:focus, select:focus, textarea:focus {
-      border-color: #FF4081;
-      background-color: #FFF0F5;
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #ff4081;
+      background-color: #fff0f5;
     }
     button {
       margin-top: 20px;
-      background: #FF82B2;
+      background: #ff82b2;
       color: #fff;
       font-weight: bold;
       cursor: pointer;
-      border: 2px solid #FF4081;
+      border: 2px solid #ff4081;
       transition: background 0.3s;
     }
     button:hover {
-      background: #FF4081;
+      background: #ff4081;
     }
     .link-container {
       margin-top: 20px;
       padding: 10px;
-      background: #E7F3FE;
-      border: 2px dashed #B3D8FF;
+      background: #e7f3fe;
+      border: 2px dashed #b3d8ff;
       border-radius: 8px;
       word-break: break-all;
     }
@@ -119,10 +125,10 @@
     <h2>Buat Ucapan Ulang Tahun</h2>
     <form id="birthdayForm">
       <label for="name">Nama Tujuan:</label>
-      <input type="text" id="name" name="name" placeholder="Contoh: Fina" required>
+      <input type="text" id="name" name="name" placeholder="Contoh: Fina" required />
 
       <label for="age">Umur:</label>
-      <input type="number" id="age" name="age" placeholder="Contoh: 20" required min="1">
+      <input type="number" id="age" name="age" placeholder="Contoh: 20" required min="1" />
 
       <label for="style">Pilih Gaya Ucapan:</label>
       <select id="style" name="style">
@@ -134,14 +140,14 @@
       <label for="note">Catatan dari Pengirim:</label>
       <textarea id="note" name="note" rows="4" placeholder="Tulis pesan spesial..."></textarea>
 
-      <!-- Input foto -->
-      <label for="photo">Upload Foto (opsional):</label>
-      <input type="file" id="photo" name="photo" accept="image/*">
+      <!-- Input link foto -->
+      <label for="photoUrl">Link Foto (opsional):</label>
+      <input type="text" id="photoUrl" name="photoUrl" placeholder="https://contoh.com/gambar.jpg" />
 
       <button type="submit">Buat Link Ucapan</button>
     </form>
 
-    <div id="result" class="link-container" style="display:none;"></div>
+    <div id="result" class="link-container" style="display: none"></div>
   </div>
 
   <div class="footer">
@@ -149,56 +155,44 @@
   </div>
 
   <script>
-    document.getElementById('birthdayForm').addEventListener('submit', function(e) {
+    document.getElementById("birthdayForm").addEventListener("submit", function (e) {
       e.preventDefault();
       
-      const name = document.getElementById('name').value;
-      const age = document.getElementById('age').value;
-      const style = document.getElementById('style').value;
-      const note = document.getElementById('note').value;
-      const photoFile = document.getElementById('photo').files[0];
-      
-      // Fungsi untuk menampilkan link di layar
-      function showLink(photoBase64) {
-        let baseUrl = window.location.origin + window.location.pathname;
-        
-        // Hapus "index.html" jika ada di path
-        if (baseUrl.includes('index.html')) {
-          baseUrl = baseUrl.replace('index.html', '');
-        }
-        // Pastikan diakhiri slash
-        if (!baseUrl.endsWith('/')) {
-          baseUrl += '/';
-        }
-        const greetingUrl = baseUrl + 'greeting.html';
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+      const style = document.getElementById("style").value;
+      const note = document.getElementById("note").value;
+      const photoUrl = document.getElementById("photoUrl").value;
 
-        // Buat link dengan parameter query
-        const link = greetingUrl 
-          + '?name=' + encodeURIComponent(name)
-          + '&age=' + encodeURIComponent(age)
-          + '&style=' + encodeURIComponent(style)
-          + '&note=' + encodeURIComponent(note)
-          + (photoBase64 ? ('&photo=' + encodeURIComponent(photoBase64)) : '');
-
-        // Tampilkan link
-        const resultDiv = document.getElementById('result');
-        resultDiv.style.display = 'block';
-        resultDiv.textContent = link;
+      let baseUrl = window.location.origin + window.location.pathname;
+      // Hapus "index.html" jika ada
+      if (baseUrl.includes("index.html")) {
+        baseUrl = baseUrl.replace("index.html", "");
       }
-
-      // Jika tidak ada foto, langsung tampilkan link
-      if (!photoFile) {
-        showLink('');
-        return;
+      // Pastikan diakhiri slash
+      if (!baseUrl.endsWith("/")) {
+        baseUrl += "/";
       }
+      const greetingUrl = baseUrl + "greeting.html";
 
-      // Jika ada foto, kita baca filenya secara base64
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        const photoBase64 = evt.target.result; // data:image/...
-        showLink(photoBase64);
-      };
-      reader.readAsDataURL(photoFile);
+      // Buat link dengan parameter query
+      const link =
+        greetingUrl +
+        "?name=" +
+        encodeURIComponent(name) +
+        "&age=" +
+        encodeURIComponent(age) +
+        "&style=" +
+        encodeURIComponent(style) +
+        "&note=" +
+        encodeURIComponent(note) +
+        "&photoUrl=" +
+        encodeURIComponent(photoUrl);
+
+      // Tampilkan link
+      const resultDiv = document.getElementById("result");
+      resultDiv.style.display = "block";
+      resultDiv.textContent = link;
     });
   </script>
 </body>
