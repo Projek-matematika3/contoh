@@ -25,7 +25,7 @@
       display: block;
       margin-top: 10px;
     }
-    input, select, button {
+    input, select, textarea, button {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -60,6 +60,10 @@
         <option value="lakik">Lakik</option>
       </select>
 
+      <!-- Input tambahan untuk catatan -->
+      <label for="note">Catatan untuk yang berulang tahun:</label>
+      <textarea id="note" name="note" rows="4" placeholder="Tulis pesan spesial..."></textarea>
+
       <button type="submit">Buat Link Ucapan</button>
     </form>
 
@@ -72,6 +76,7 @@
       const name = document.getElementById('name').value;
       const age = document.getElementById('age').value;
       const style = document.getElementById('style').value;
+      const note = document.getElementById('note').value;
       
       // Ambil URL base saat ini
       let baseUrl = window.location.origin + window.location.pathname;
@@ -89,11 +94,12 @@
       // Buat URL menuju greeting.html
       const greetingUrl = baseUrl + 'greeting.html';
       
-      // Buat link dengan parameter query
+      // Buat link dengan parameter query, termasuk note
       const link = greetingUrl 
         + '?name=' + encodeURIComponent(name)
         + '&age=' + encodeURIComponent(age)
-        + '&style=' + encodeURIComponent(style);
+        + '&style=' + encodeURIComponent(style)
+        + '&note=' + encodeURIComponent(note);
       
       // Tampilkan link yang dihasilkan
       const resultDiv = document.getElementById('result');
